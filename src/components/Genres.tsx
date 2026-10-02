@@ -3,6 +3,9 @@ import { motion } from 'motion/react';
 import { Volume2, VolumeX } from 'lucide-react';
 import { djData } from '../data/djData';
 
+// Constante del poster oficial de alta calidad para la sección Sonido
+const SECOND_VIDEO_POSTER = "/assets/videos/sonido-poster-opcion-1-HQ.png";
+
 // Ruta configurada para el segundo video de la sección Sonido
 const SECOND_VIDEO_SRC = djData.soundVideo || "/assets/videos/sonido-bryan.mp4";
 
@@ -86,19 +89,32 @@ export default function Genres() {
       className="scroll-mt-20 relative min-h-[75vh] lg:min-h-[85vh] w-full flex items-center justify-center bg-black overflow-hidden py-24 md:py-32"
     >
       {/* =======================================================================
-          1. FONDO DE RESPALDO (Activo siempre y visible si no hay video cargado)
+          1. FONDO DE RESPALDO BASE
           ======================================================================= */}
       <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black via-zinc-950 to-black z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.08),transparent_65%)]" />
       </div>
 
       {/* =======================================================================
-          2. SEGUNDO VIDEO DE FONDO COMPLETO (Autoplay + Loop + Muted + PlaysInline)
+          2. CAPA POSTER INDEPENDIENTE (Fallback principal + Prevención de flash negro)
+          ======================================================================= */}
+      <img
+        src={SECOND_VIDEO_POSTER}
+        alt=""
+        aria-hidden="true"
+        className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0 transition-opacity duration-1000 ${
+          videoLoaded && !videoFailed ? 'opacity-0' : 'opacity-100'
+        }`}
+      />
+
+      {/* =======================================================================
+          3. SEGUNDO VIDEO DE FONDO COMPLETO (Autoplay + Loop + Muted + PlaysInline)
           ======================================================================= */}
       {!videoFailed && (
         <video
           ref={videoRef}
           src={SECOND_VIDEO_SRC}
+          poster={SECOND_VIDEO_POSTER}
           autoPlay
           loop
           muted
@@ -118,7 +134,7 @@ export default function Genres() {
       )}
 
       {/* =======================================================================
-          3. OVERLAYS CINEMATOGRÁFICOS (Video claramente visible + transición suave)
+          4. OVERLAYS CINEMATOGRÁFICOS (Video y Poster claramente visibles + transición suave)
           ======================================================================= */}
       {/* Capa oscura base (35%) para contraste tipográfico sin oscurecer en exceso */}
       <div className="absolute inset-0 bg-black/35 pointer-events-none z-[1]" />
@@ -130,7 +146,7 @@ export default function Genres() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-blue-600/10 rounded-full blur-[180px] pointer-events-none z-[2]" />
 
       {/* =======================================================================
-          4. CONTENIDO ENCIMA DEL VIDEO (z-10)
+          5. CONTENIDO ENCIMA DEL VIDEO Y POSTER (z-10)
           ======================================================================= */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full">
         
@@ -230,7 +246,7 @@ export default function Genres() {
       </div>
 
       {/* =======================================================================
-          5. CONTROL INDEPENDIENTE DE AUDIO (Visible únicamente si el video carga)
+          6. CONTROL INDEPENDIENTE DE AUDIO (Visible únicamente cuando el video está disponible)
           ======================================================================= */}
       {videoLoaded && !videoFailed && (
         <motion.div
