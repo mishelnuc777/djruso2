@@ -11,7 +11,7 @@ interface GalleryItem {
   videoUrl?: string; // enlace de YouTube (solo para videos)
 }
 
-// Imágenes reales disponibles dentro de /public/assets/gallery/
+// 12 fotografías reales dentro de /public/assets/gallery/
 const galleryPhotos: GalleryItem[] = [
   { id: 'gal-01', url: '/assets/gallery/gallery-01.jpg.jpeg', alt: 'DJ Bryan Acosta en cabina en vivo' },
   { id: 'gal-02', url: '/assets/gallery/gallery-02.jpg.jpeg', alt: 'Montaje de iluminación y producción escénica' },
@@ -27,7 +27,7 @@ const galleryPhotos: GalleryItem[] = [
   { id: 'gal-12', url: '/assets/gallery/gallery-12.jpg.jpeg', alt: 'Producción sonora y show completo de DJ' },
 ];
 
-// Videos de YouTube configurados en src/data/djData.ts (galleryVideos): se agregan después de las fotos
+// Videos de YouTube configurados en src/data/djData.ts (galleryVideos)
 const galleryVideoItems: GalleryItem[] = (djData.galleryVideos ?? []).flatMap((video) => {
   const yt = parseYouTube(video.url);
   if (!yt) return [];
@@ -39,10 +39,9 @@ const galleryItems: GalleryItem[] = [...galleryPhotos, ...galleryVideoItems];
 export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  // Helper to sanitize placeholder alt text
   const getSanitizedAlt = (altText: string, index: number): string => {
     if (!altText || (altText.startsWith('[') && altText.endsWith(']'))) {
-      return `Registro visual de escenario ${String(index + 1).padStart(2, '0')}`;
+      return `Registro visual ${String(index + 1).padStart(2, '0')}`;
     }
     return altText;
   };
@@ -68,7 +67,6 @@ export default function Gallery() {
   useEffect(() => {
     if (selectedIndex === null) return;
 
-    // Lock body scroll
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
@@ -86,88 +84,89 @@ export default function Gallery() {
   }, [selectedIndex, handleClose, handlePrev, handleNext]);
 
   return (
-    <section id="gallery" className="py-24 md:py-32 bg-zinc-950 relative border-t border-zinc-900 overflow-hidden">
+    <section id="gallery" className="py-20 md:py-28 bg-black relative border-t border-zinc-900 overflow-hidden">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* =========================================================================
             EDITORIAL HEADER
             ========================================================================= */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-14 gap-4">
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="w-6 h-[1px] bg-blue-500"></span>
-              <span className="text-blue-400 font-semibold tracking-[0.25em] uppercase text-xs">
-                Portafolio Escénico
+            <div className="flex items-center gap-3 mb-2.5">
+              <span className="w-6 h-[2px] bg-blue-500"></span>
+              <span className="text-blue-400 font-bold tracking-[0.28em] uppercase text-xs">
+                ARCHIVO
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase">
-              Atmósfera en Pista
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.9]">
+              LIVE
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base font-light max-w-xl mt-3 leading-relaxed">
-              Registro visual de producción, puesta en escena, cabina e iluminación en vivo para eventos y festivales.
-            </p>
           </div>
 
-          <div className="text-xs text-zinc-500 uppercase tracking-widest font-semibold pb-1">
+          <div className="text-xs text-zinc-500 uppercase tracking-widest font-mono pb-1 self-start sm:self-end">
             <span>
-              {hasItems ? (
+              {hasItems && (
                 <>
                   {galleryPhotos.length} Fotografías
-                  {galleryVideoItems.length > 0 && ` · ${galleryVideoItems.length} ${galleryVideoItems.length === 1 ? 'Video' : 'Videos'}`}
+                  {galleryVideoItems.length > 0 && ` · ${galleryVideoItems.length} Videos`}
                 </>
-              ) : (
-                'Próximamente'
               )}
             </span>
           </div>
         </div>
 
         {/* =========================================================================
-            ASYMMETRIC EDITORIAL GRID (12 ITEMS)
+            EDITORIAL ASYMMETRIC MASONRY SPREAD (NO CARDS / NO HEAVY BORDERS)
             ========================================================================= */}
-        {hasItems ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
+        {hasItems && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 lg:gap-5">
             {galleryItems.map((image, index) => {
               const altText = getSanitizedAlt(image.alt, index);
 
-              // Asymmetric grid layout sizing:
-              // Row 1: Item 0 (7 cols) + Item 1 (5 cols) = 12 cols
-              // Row 2: Item 2, 3, 4 (4 cols each) = 12 cols
-              // Row 3: Item 5 (5 cols) + Item 6 (7 cols) = 12 cols
-              // Row 4: Item 7, 8, 9 (4 cols each) = 12 cols
-              // Row 5: Item 10, 11 (6 cols each) = 12 cols
+              // Editorial Magazine Pacing (Controlled Asymmetric Hierarchy)
+              // Row 1: 0 (Hero Wide 8 cols) + 1 (Vertical 4 cols) = 12
+              // Row 2: 2, 3, 4 (Triad 4 cols each) = 12
+              // Row 3: 5 (Vertical 5 cols) + 6 (Hero Wide 7 cols) = 12
+              // Row 4: 7, 8, 9 (Triad 4 cols each) = 12
+              // Row 5: 10, 11 (Expansive Panoramas 6 cols each) = 12
               let colSpan = 'lg:col-span-4 sm:col-span-1';
-              let aspectClass = 'aspect-[4/3] sm:aspect-square lg:aspect-[4/3]';
+              let aspectClass = 'aspect-[4/3]';
 
               if (index === 0) {
-                colSpan = 'lg:col-span-7 sm:col-span-2';
-                aspectClass = 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] min-h-[320px]';
+                colSpan = 'lg:col-span-8 sm:col-span-2';
+                aspectClass = 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] min-h-[300px] sm:min-h-[420px]';
               } else if (index === 1) {
-                colSpan = 'lg:col-span-5 sm:col-span-1';
-                aspectClass = 'aspect-[4/3] sm:aspect-square lg:aspect-auto lg:h-full';
+                colSpan = 'lg:col-span-4 sm:col-span-1';
+                aspectClass = 'aspect-[4/5] sm:aspect-square lg:aspect-[4/5]';
+              } else if (index === 2 || index === 3 || index === 4) {
+                colSpan = 'lg:col-span-4 sm:col-span-1';
+                aspectClass = 'aspect-[4/3]';
               } else if (index === 5) {
                 colSpan = 'lg:col-span-5 sm:col-span-1';
-                aspectClass = 'aspect-[4/3] sm:aspect-square lg:aspect-auto lg:h-full';
+                aspectClass = 'aspect-[4/5] sm:aspect-square lg:aspect-[4/5]';
               } else if (index === 6) {
                 colSpan = 'lg:col-span-7 sm:col-span-2';
-                aspectClass = 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] min-h-[320px]';
+                aspectClass = 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10] min-h-[300px] sm:min-h-[420px]';
+              } else if (index === 7 || index === 8 || index === 9) {
+                colSpan = 'lg:col-span-4 sm:col-span-1';
+                aspectClass = 'aspect-[1/1] sm:aspect-[4/3]';
               } else if (index === 10 || index === 11) {
                 colSpan = 'lg:col-span-6 sm:col-span-1';
-                aspectClass = 'aspect-[16/10] sm:aspect-[4/3]';
+                aspectClass = 'aspect-[16/10]';
               }
 
               return (
                 <motion.div
                   key={image.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: (index % 6) * 0.08, duration: 0.5 }}
-                  className={`relative group overflow-hidden rounded-2xl bg-black border border-zinc-800/80 hover:border-zinc-700 transition-all duration-300 cursor-pointer shadow-xl ${colSpan}`}
+                  transition={{ delay: (index % 6) * 0.06, duration: 0.5 }}
+                  className={`relative group overflow-hidden rounded-lg bg-zinc-950 cursor-pointer ${colSpan}`}
                   onClick={() => setSelectedIndex(index)}
                   role="button"
                   tabIndex={0}
@@ -177,60 +176,43 @@ export default function Gallery() {
                       setSelectedIndex(index);
                     }
                   }}
-                  aria-label={image.videoUrl ? `Reproducir video: ${altText}` : `Ver imagen ampliada: ${altText}`}
+                  aria-label={image.videoUrl ? `Reproducir video: ${altText}` : `Ver imagen en pantalla completa`}
                 >
                   <div className={`w-full h-full ${aspectClass} overflow-hidden`}>
                     <img 
                       src={image.url} 
                       alt={altText}
-                      loading={index < 2 ? 'eager' : 'lazy'}
+                      loading={index < 3 ? 'eager' : 'lazy'}
                       decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />
                   </div>
 
-                  {/* Icono de reproducción para videos */}
+                  {/* Play Trigger for Video Items */}
                   {image.videoUrl && (
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                      <span className="w-14 h-14 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-[0_0_30px_rgba(37,99,235,0.5)]">
-                        <Play size={22} className="translate-x-0.5" fill="currentColor" />
+                      <span className="w-12 h-12 rounded-full bg-blue-600/90 text-white flex items-center justify-center shadow-lg">
+                        <Play size={20} className="translate-x-0.5" fill="currentColor" />
                       </span>
                     </div>
                   )}
 
-                  {/* Dark subtle vignette on hover with zoom icon */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5">
-                    <div className="self-end">
-                      <div className="bg-zinc-950/80 border border-white/10 text-white p-3 rounded-xl backdrop-blur-md transform scale-90 group-hover:scale-100 transition-transform">
-                        <ZoomIn size={18} className="text-blue-400" />
-                      </div>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-mono font-bold tracking-widest text-zinc-400 uppercase block mb-1">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <p className="text-white text-xs sm:text-sm font-semibold tracking-wide">
-                        {altText}
-                      </p>
-                    </div>
+                  {/* Subtle hover overlay & minimal zoom indicator */}
+                  <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-start justify-end p-3">
+                    <span className="p-2 rounded-full bg-black/60 backdrop-blur-md text-white/90 transform scale-90 group-hover:scale-100 transition-transform">
+                      <ZoomIn size={14} />
+                    </span>
                   </div>
                 </motion.div>
               );
             })}
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-12 text-center max-w-xl mx-auto backdrop-blur-sm">
-            <p className="text-zinc-400 text-sm font-light">
-              Próximamente nuevas fotografías y registro visual en vivo de festivales y eventos.
-            </p>
           </div>
         )}
 
       </div>
 
       {/* =========================================================================
-          ACCESSIBLE LIGHTBOX MODAL WITH FULL CONTROLS
+          LIGHTBOX MODAL (PURE FULLSCREEN PHOTO PROTAGONISM)
           ========================================================================= */}
       <AnimatePresence>
         {selectedIndex !== null && galleryItems[selectedIndex] && (
@@ -238,20 +220,20 @@ export default function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 md:p-8"
+            className="fixed inset-0 z-[100] bg-black/98 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6"
             onClick={handleClose}
             role="dialog"
             aria-modal="true"
-            aria-label="Visor de imagen en pantalla completa"
+            aria-label="Visor de imagen"
           >
-            {/* Top Toolbar */}
+            {/* Top Bar with Counter and Close Button */}
             <div className="absolute top-5 left-6 right-6 flex items-center justify-between z-20 pointer-events-none">
-              <span className="text-xs font-mono font-bold tracking-widest text-zinc-400 pointer-events-auto bg-zinc-900/80 px-3 py-1.5 rounded-lg border border-zinc-800">
+              <span className="text-xs font-mono font-semibold tracking-widest text-zinc-400 pointer-events-auto bg-zinc-900/80 px-3 py-1.5 rounded border border-zinc-800">
                 {String(selectedIndex + 1).padStart(2, '0')} / {String(galleryItems.length).padStart(2, '0')}
               </span>
 
               <button 
-                className="text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-2.5 rounded-xl transition-colors cursor-pointer pointer-events-auto"
+                className="text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-2.5 rounded-lg transition-colors cursor-pointer pointer-events-auto"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleClose();
@@ -265,12 +247,12 @@ export default function Gallery() {
             {/* Previous Image Button */}
             {galleryItems.length > 1 && (
               <button
-                className="absolute left-4 sm:left-6 z-20 text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-3 rounded-xl transition-all cursor-pointer hidden sm:flex items-center justify-center"
+                className="absolute left-4 sm:left-6 z-20 text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-3 rounded-lg transition-all cursor-pointer hidden sm:flex items-center justify-center"
                 onClick={(e) => {
                   e.stopPropagation();
                   handlePrev();
                 }}
-                aria-label="Ver imagen anterior"
+                aria-label="Imagen anterior"
               >
                 <ChevronLeft size={22} />
               </button>
@@ -279,11 +261,11 @@ export default function Gallery() {
             {/* Center Image Container */}
             <motion.div 
               key={selectedIndex}
-              initial={{ scale: 0.96, opacity: 0 }}
+              initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
+              exit={{ scale: 0.98, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="relative max-w-5xl max-h-[85vh] flex flex-col items-center justify-center"
+              className="relative max-w-6xl max-h-[88vh] flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -292,7 +274,7 @@ export default function Gallery() {
                 if (yt) {
                   return (
                     <div
-                      className={`rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black ${
+                      className={`rounded-lg overflow-hidden bg-black ${
                         yt.isShort
                           ? 'h-[75vh] max-h-[680px] aspect-[9/16]'
                           : 'w-[90vw] max-w-4xl aspect-video'
@@ -313,27 +295,21 @@ export default function Gallery() {
                   <img 
                     src={current.url} 
                     alt={getSanitizedAlt(current.alt, selectedIndex)}
-                    className="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border border-white/10"
+                    className="max-w-[92vw] max-h-[85vh] object-contain rounded-lg shadow-2xl"
                   />
                 );
               })()}
-              
-              <div className="mt-3 text-center">
-                <p className="text-zinc-400 text-xs sm:text-sm font-medium">
-                  {getSanitizedAlt(galleryItems[selectedIndex].alt, selectedIndex)}
-                </p>
-              </div>
             </motion.div>
 
             {/* Next Image Button */}
             {galleryItems.length > 1 && (
               <button
-                className="absolute right-4 sm:right-6 z-20 text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-3 rounded-xl transition-all cursor-pointer hidden sm:flex items-center justify-center"
+                className="absolute right-4 sm:right-6 z-20 text-zinc-400 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 p-3 rounded-lg transition-all cursor-pointer hidden sm:flex items-center justify-center"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleNext();
                 }}
-                aria-label="Ver imagen siguiente"
+                aria-label="Imagen siguiente"
               >
                 <ChevronRight size={22} />
               </button>
@@ -343,7 +319,7 @@ export default function Gallery() {
             {galleryItems.length > 1 && (
               <div className="sm:hidden absolute bottom-6 inset-x-0 flex items-center justify-center gap-4 z-20 pointer-events-auto">
                 <button
-                  className="text-zinc-400 hover:text-white bg-zinc-900/90 border border-zinc-800 p-3 rounded-xl"
+                  className="text-zinc-400 hover:text-white bg-zinc-900/90 border border-zinc-800 p-3 rounded-lg"
                   onClick={(e) => {
                     e.stopPropagation();
                     handlePrev();
@@ -353,7 +329,7 @@ export default function Gallery() {
                   <ChevronLeft size={20} />
                 </button>
                 <button
-                  className="text-zinc-400 hover:text-white bg-zinc-900/90 border border-zinc-800 p-3 rounded-xl"
+                  className="text-zinc-400 hover:text-white bg-zinc-900/90 border border-zinc-800 p-3 rounded-lg"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleNext();

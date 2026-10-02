@@ -93,8 +93,7 @@ export default function Hero() {
 
   const artistName = 'DJ BRYAN ACOSTA';
   const displaySlogan = 'Desde la última loma de Caspigasi';
-  const displayDescription = djData.shortDescription || 
-    'Propuesta musical versátil para todo tipo de eventos: reguetón, música electrónica y diversos géneros, con sets dinámicos, mezclas y remixes.';
+  const displayDescription = 'Más de 18 años en cabina, con una selección versátil, sets y mezclas para eventos y escenarios en todo Ecuador.';
 
   return (
     <section 
@@ -110,7 +109,7 @@ export default function Hero() {
         <img 
           src={posterSrc} 
           alt={`Presentación oficial de ${artistName}`} 
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover object-center brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
             videoLoaded ? 'opacity-0' : 'opacity-100'
           }`}
           loading="eager"
@@ -132,7 +131,7 @@ export default function Hero() {
               onLoadedData={() => setVideoLoaded(true)}
               onPlaying={() => setVideoLoaded(true)}
               onError={() => setVideoFailed(true)}
-              className={`w-full h-full object-cover object-center transition-opacity duration-1000 ${
+              className={`w-full h-full object-cover object-center brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               aria-hidden="true"
@@ -150,7 +149,7 @@ export default function Hero() {
               referrerPolicy="strict-origin-when-cross-origin"
               tabIndex={-1}
               onLoad={() => setVideoLoaded(true)}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full border-0 transition-opacity duration-1000 ${
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full border-0 brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
             />
@@ -158,23 +157,23 @@ export default function Hero() {
         )}
 
         {/* =========================================================================
-            CINEMATIC OVERLAYS (Guarantees legibility while letting video shine)
+            CINEMATIC OVERLAYS (Lightened to let video shine with maximum clarity)
             ========================================================================= */}
         <div className="absolute inset-0 z-[1]">
-          {/* Base dark tint */}
-          <div className="absolute inset-0 bg-black/55 pointer-events-none"></div>
+          {/* Base dark tint - significantly reduced for clarity */}
+          <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
 
-          {/* Directional horizontal gradient: stronger on left to anchor typography */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/80 md:via-black/70 to-black/35 pointer-events-none"></div>
+          {/* Directional horizontal gradient: softened to reveal video motion and color */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 md:via-black/35 to-black/10 pointer-events-none"></div>
 
-          {/* Vertical gradient: blends navbar and transition to next section */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-transparent to-black pointer-events-none"></div>
+          {/* Vertical gradient: blends navbar and transition to next section smoothly */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/55 pointer-events-none"></div>
 
-          {/* Peripheral vignette */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,#000000_90%)] pointer-events-none"></div>
+          {/* Peripheral vignette: much softer with wide transparent core */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.5)_100%)] pointer-events-none"></div>
 
           {/* Ambient stage blue glow behind text */}
-          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[350px] sm:w-[600px] h-[400px] bg-blue-600/15 rounded-full blur-[160px] pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[350px] sm:w-[600px] h-[400px] bg-blue-600/20 rounded-full blur-[160px] pointer-events-none"></div>
         </div>
       </div>
 
@@ -184,47 +183,43 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full pt-28 pb-20 md:py-24">
         <div className="max-w-3xl">
           
-          {/* Slogan Pill */}
+          {/* Editorial Artist Signature Kicker */}
           <motion.div 
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-zinc-950/80 border border-zinc-800/90 backdrop-blur-md mb-6 w-fit shadow-lg shadow-black/50"
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className="flex items-center gap-3 mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            <span className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] text-zinc-300">
+            <span className="w-6 h-[2px] bg-blue-500"></span>
+            <span className="text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-zinc-300 drop-shadow-sm">
               «{displaySlogan}»
             </span>
           </motion.div>
 
-          {/* Monumental Brand Title: DJ BRYAN ACOSTA */}
+          {/* Monumental Brand Title: DJ BRYAN ACOSTA (Artist Headline Scale) */}
           <motion.h1 
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.22 }}
-            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter uppercase leading-[0.88] mb-4 select-none drop-shadow-2xl break-words"
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8.5rem] font-black text-white tracking-tight uppercase leading-[0.92] mb-5 select-none drop-shadow-xl break-words"
           >
-            {artistName}
+            DJ BRYAN<br className="hidden sm:inline" /> ACOSTA
           </motion.h1>
 
-          {/* Subtitle Line: DJ */}
+          {/* Secondary Identity: DJ DE DJS */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.28 }}
             className="flex items-center gap-3 mb-6"
           >
-            <span className="w-6 h-[2px] bg-blue-500"></span>
-            <span className="text-blue-400 font-extrabold tracking-[0.3em] uppercase text-sm sm:text-base">
-              DJ
-            </span>
-            <span className="text-zinc-600 text-xs">•</span>
-            <span className="text-zinc-400 text-xs sm:text-sm font-semibold tracking-wider uppercase">
-              Música & Producción para Eventos
+            <span className="w-5 h-[2px] bg-blue-500"></span>
+            <span className="text-blue-400 font-extrabold tracking-[0.3em] uppercase text-xs sm:text-sm">
+              DJ DE DJS
             </span>
           </motion.div>
           
-          {/* Versatile Music Short Description */}
+          {/* Concise Artist Description */}
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -247,16 +242,16 @@ export default function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Hablar por WhatsApp con Bryan Acosta"
-              className="px-7 sm:px-8 py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all duration-300 shadow-[0_0_25px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 group cursor-pointer border border-[#25D366]/40"
+              className="px-8 py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all duration-300 shadow-[0_0_25px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 group cursor-pointer border border-[#25D366]/40"
             >
               <WhatsAppIcon className="w-5 h-5 text-white shrink-0 transition-transform duration-300 group-hover:scale-110" />
               <span>Hablar por WhatsApp</span>
             </a>
 
-            {/* Secondary CTA: Escuchar Sesiones */}
+            {/* Secondary CTA: Escuchar Sesiones (Refined, Editorial) */}
             <a 
               href="#music"
-              className="px-7 py-4 bg-zinc-950/70 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white font-semibold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all backdrop-blur-md flex items-center justify-center gap-2.5 group"
+              className="px-7 py-4 bg-zinc-950/40 hover:bg-zinc-900/80 border border-zinc-800/80 hover:border-zinc-600 text-zinc-300 hover:text-white font-semibold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all duration-300 backdrop-blur-sm flex items-center justify-center gap-2.5 group"
             >
               <Disc3 size={17} className="text-blue-400 group-hover:rotate-45 transition-transform duration-300" />
               <span>Escuchar Sesiones</span>

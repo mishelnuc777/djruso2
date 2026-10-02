@@ -9,11 +9,12 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Inicio', href: '#home' },
-    { name: 'Música', href: '#music' },
-    { name: 'Galería', href: '#gallery' },
-    { name: 'Servicios', href: '#packages' },
-    { name: 'Contacto', href: '#contact' },
+    { name: 'Home', href: '#home' },
+    { name: 'Services', href: '#packages' },
+    { name: 'Sets', href: '#music' },
+    { name: 'Live', href: '#gallery' },
+    { name: 'About', href: '#about' },
+    { name: 'Booking', href: '#contact' },
   ];
 
   useEffect(() => {
@@ -53,12 +54,12 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-9 lg:space-x-10">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
               href={link.href}
-              className="text-xs uppercase tracking-widest font-semibold text-zinc-400 hover:text-white transition-colors duration-200 py-1"
+              className="text-[13px] uppercase tracking-widest font-semibold text-zinc-300 hover:text-white transition-colors duration-200 py-1"
             >
               {link.name}
             </a>

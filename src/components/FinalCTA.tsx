@@ -20,97 +20,66 @@ export default function FinalCTA() {
     <section className="relative py-24 md:py-36 bg-black border-t border-zinc-900 overflow-hidden">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none"></div>
-      <div className="absolute -bottom-24 left-1/4 w-[400px] h-[400px] bg-red-600/5 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[180px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="max-w-[1500px] mx-auto px-6 lg:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* =========================================================================
-              LEFT COLUMN: Cinematic Portrait of Bryan Acosta (50/50 balance)
-              ========================================================================= */}
+          {/* Dominant Hero Portrait of Bryan Acosta (55% on desktop, integrated, open) */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-5 order-1 lg:order-1"
+            transition={{ duration: 0.8 }}
+            className="lg:col-span-7 order-1"
           >
-            <div className="relative rounded-3xl overflow-hidden bg-zinc-950 border border-zinc-800/80 shadow-2xl group max-w-md mx-auto lg:max-w-none">
+            <div className="relative w-full h-[480px] sm:h-[600px] lg:h-[700px] overflow-hidden rounded-xl bg-zinc-950 group">
+              <img 
+                src="/assets/images/bryan-final.png.png" 
+                alt="DJ Bryan Acosta"
+                className="w-full h-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                loading="lazy"
+              />
               
-              <div className="aspect-[4/5] w-full overflow-hidden relative">
-                {/* Official untouched photo */}
-                <img 
-                  src="/assets/images/bryan-final.png.png" 
-                  alt="DJ Bryan Acosta en cabina"
-                  className="w-full h-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-
-                {/* Subtle base gradient to blend with frame */}
-                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none"></div>
-
-                {/* Corner signature tag */}
-                <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between pointer-events-none">
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-blue-400 font-bold drop-shadow-md">
-                    En Vivo & Producción
-                  </span>
-                  <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
-                </div>
-              </div>
-
+              {/* Cinematic bottom gradient blend so photo feels natural */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
             </div>
           </motion.div>
 
-          {/* =========================================================================
-              RIGHT COLUMN: Powerful Editorial Finale & WhatsApp Booking Action
-              ========================================================================= */}
+          {/* Monumental Headline, Signature & WhatsApp Action (45% on desktop) */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-7 flex flex-col justify-center order-2 lg:order-2 text-left"
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="lg:col-span-5 flex flex-col justify-center order-2 text-left"
           >
-            {/* Small tag */}
-            <div className="flex items-center gap-3 mb-4">
-              <span className="w-6 h-[2px] bg-blue-500"></span>
-              <span className="text-blue-400 font-extrabold tracking-[0.25em] uppercase text-xs">
-                DJ • MÚSICA • PRODUCCIÓN
-              </span>
-            </div>
-
             {/* Monumental Title */}
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight uppercase mb-6 leading-[1.05]">
-              DJ BRYAN ACOSTA
+            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white tracking-tighter uppercase leading-[0.88] mb-6">
+              DJ BRYAN<br />ACOSTA
             </h2>
 
-            {/* Core Message */}
-            <p className="text-zinc-200 text-lg sm:text-xl font-normal leading-relaxed mb-4 text-balance">
-              Más de 18 años convirtiendo música, producción y experiencia en momentos que se viven en la pista.
-            </p>
+            {/* Signature Phrase */}
+            <div className="flex items-center gap-3 mb-10">
+              <span className="w-6 h-[1.5px] bg-blue-500"></span>
+              <p className="text-zinc-400 text-sm sm:text-base font-light tracking-wide italic">
+                «Desde la última loma de Caspigasi»
+              </p>
+            </div>
 
-            {/* Discreet Slogan */}
-            <p className="text-zinc-500 text-xs sm:text-sm font-medium tracking-wide mb-8 italic">
-              «Desde la última loma de Caspigasi.»
-            </p>
-
-            {/* WhatsApp CTA Action */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            {/* Primary CTA */}
+            <div>
               <a 
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Hablar por WhatsApp con Bryan Acosta"
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 sm:py-4.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all duration-300 shadow-[0_0_30px_rgba(37,211,102,0.35)] hover:shadow-[0_0_45px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 active:translate-y-0 border border-[#25D366]/40 group cursor-pointer"
+                className="inline-flex items-center justify-center gap-3 px-8 py-4 sm:py-5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg transition-all shadow-[0_0_25px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.5)] cursor-pointer"
               >
-                <WhatsAppIcon className="w-5 h-5 text-white shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                <WhatsAppIcon className="w-5 h-5 text-white shrink-0" />
                 <span>HABLAR POR WHATSAPP</span>
               </a>
-
-              <span className="text-zinc-500 text-xs font-medium text-center sm:text-left">
-                Línea directa oficial • +593 99 271 0709
-              </span>
             </div>
 
           </motion.div>

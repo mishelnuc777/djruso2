@@ -110,24 +110,24 @@ export default function SocialLinks() {
         {/* =========================================================================
             SECTION HEADER
             ========================================================================= */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <span className="w-6 h-[1px] bg-blue-500"></span>
-              <span className="text-blue-400 font-semibold tracking-[0.25em] uppercase text-xs">
-                Ecosistema Digital
+              <span className="w-8 h-[2px] bg-blue-500"></span>
+              <span className="text-blue-400 font-bold tracking-[0.25em] uppercase text-xs">
+                CANALES OFICIALES & COMUNIDAD
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase">
-              Conecta con DJ Bryan Acosta
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.9]">
+              Ecosistema<br />Digital
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base font-light max-w-xl mt-3 leading-relaxed">
+            <p className="text-zinc-400 text-base sm:text-lg font-light max-w-xl mt-4 leading-relaxed">
               Sigue la actividad en cabina, próximos anuncios de eventos y producciones audiovisuales a través de los canales oficiales.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-zinc-500 uppercase tracking-widest font-semibold pb-1">
-            <ShieldCheck size={15} className="text-blue-500" />
+          <div className="flex items-center gap-2 text-xs text-zinc-500 uppercase tracking-widest font-mono pb-2">
+            <ShieldCheck size={16} className="text-blue-500" />
             <span>Canales Verificados</span>
           </div>
         </div>
