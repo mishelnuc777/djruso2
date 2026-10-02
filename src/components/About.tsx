@@ -76,7 +76,7 @@ export default function About() {
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-4">
               <span className="w-6 h-[1px] bg-blue-500"></span>
               <span className="text-blue-400 font-semibold tracking-[0.25em] uppercase text-xs">
-                Perfil & Trayectoria
+                Trayectoria & Experiencia
               </span>
               <span className="text-zinc-600 text-xs hidden sm:inline">•</span>
               <span className="text-zinc-400 font-medium tracking-wide text-xs">
