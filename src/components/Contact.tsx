@@ -128,35 +128,49 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-black relative border-t border-zinc-900 overflow-hidden">
+    <section id="contact" className="scroll-mt-20 py-28 md:py-36 bg-black relative border-t border-zinc-900 overflow-hidden">
       
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none"></div>
+      {/* =========================================================================
+          AMBIENT STAGE & LED GLOW LAYERS (Atmósfera de cabina / producción nocturna)
+          ========================================================================= */}
+      {/* Halo azul eléctrico superior izquierdo */}
+      <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-blue-600/12 rounded-full blur-[170px] pointer-events-none" />
+
+      {/* Halo verde neón suave inferior derecho */}
+      <div className="absolute bottom-10 -right-16 w-[550px] h-[550px] bg-emerald-500/10 rounded-full blur-[180px] pointer-events-none" />
+
+      {/* Halo violeta tenue en el centro para profundidad y contraste */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-violet-600/8 rounded-full blur-[190px] pointer-events-none" />
+
+      {/* Cuadrícula técnica sutil para enriquecer el fondo oscuro estilo consola/cabina */}
+      <div 
+        className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" 
+      />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         
         {/* =========================================================================
             SECTION HEADER (ESPAÑOL CLARO & DIRECTO)
             ========================================================================= */}
-        <div className="mb-14 md:mb-20">
+        <div className="mb-16 md:mb-20">
           <div className="flex items-center gap-3 mb-3">
             <span className="w-6 h-[2px] bg-blue-500"></span>
-            <span className="text-blue-400 font-bold tracking-[0.28em] uppercase text-xs">
+            <span className="text-blue-400 font-bold tracking-[0.28em] uppercase text-xs drop-shadow-sm">
               RESERVAS
             </span>
           </div>
           <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[0.9] mb-4">
             RESERVA TU FECHA
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base font-light">
-            Cuéntanos sobre tu evento y consulta disponibilidad.
+          <p className="text-zinc-400 text-sm sm:text-base font-light max-w-xl">
+            Cuéntanos sobre tu evento y consulta disponibilidad en cabina y producción sonora.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* =========================================================================
-              LEFT COLUMN: Canales de Consulta Directa
+              LEFT COLUMN: Canales de Consulta Directa (Módulos Iluminados)
               ========================================================================= */}
           <div className="lg:col-span-5 space-y-6">
             <div>
@@ -168,12 +182,12 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Valid Contact Information Modules */}
+            {/* Valid Contact Information Modules con acentos hover suaves */}
             {(hasPhone || hasEmail || hasLocation) && (
               <div className="space-y-2.5">
                 {hasPhone && (
-                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-800 transition-colors flex items-center gap-3.5 group">
-                    <div className="w-10 h-10 rounded-lg bg-zinc-900 text-blue-400 flex items-center justify-center shrink-0">
+                  <div className="p-4 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 hover:border-blue-500/40 hover:bg-zinc-900/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 flex items-center gap-3.5 group">
+                    <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 text-blue-400 group-hover:text-blue-300 group-hover:border-blue-500/30 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.3)] flex items-center justify-center shrink-0 transition-all">
                       <Phone size={17} />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -193,8 +207,8 @@ export default function Contact() {
                 )}
 
                 {hasEmail && (
-                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-800 transition-colors flex items-center gap-3.5 group">
-                    <div className="w-10 h-10 rounded-lg bg-zinc-900 text-blue-400 flex items-center justify-center shrink-0">
+                  <div className="p-4 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 hover:border-blue-500/40 hover:bg-zinc-900/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 flex items-center gap-3.5 group">
+                    <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 text-blue-400 group-hover:text-blue-300 group-hover:border-blue-500/30 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.3)] flex items-center justify-center shrink-0 transition-all">
                       <Mail size={17} />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -212,8 +226,8 @@ export default function Contact() {
                 )}
 
                 {hasLocation && (
-                  <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-900 hover:border-zinc-800 transition-colors flex items-center gap-3.5 group">
-                    <div className="w-10 h-10 rounded-lg bg-zinc-900 text-blue-400 flex items-center justify-center shrink-0">
+                  <div className="p-4 rounded-xl bg-zinc-950/80 backdrop-blur-md border border-zinc-800/80 hover:border-blue-500/40 hover:bg-zinc-900/60 hover:shadow-[0_0_20px_rgba(59,130,246,0.1)] transition-all duration-300 flex items-center gap-3.5 group">
+                    <div className="w-10 h-10 rounded-lg bg-zinc-900 border border-zinc-800 text-blue-400 group-hover:text-blue-300 group-hover:border-blue-500/30 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.3)] flex items-center justify-center shrink-0 transition-all">
                       <MapPin size={17} />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -229,17 +243,22 @@ export default function Contact() {
               </div>
             )}
 
-            {/* Direct WhatsApp Action Block */}
-            <div className="rounded-xl bg-zinc-950 border border-zinc-900 p-6 space-y-4">
+            {/* Direct WhatsApp Action Block con halo esmeralda */}
+            <div className="rounded-xl bg-gradient-to-b from-zinc-950/90 to-zinc-900/40 backdrop-blur-md border border-emerald-500/25 hover:border-emerald-500/45 p-6 space-y-4 shadow-[0_0_30px_rgba(16,185,129,0.06)] relative overflow-hidden transition-all duration-300">
+              
+              {/* Línea sutil superior esmeralda */}
+              <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-[#25D366]/15 text-[#25D366] flex items-center justify-center shrink-0">
-                  <MessageCircle size={18} />
+                <div className="w-10 h-10 rounded-lg bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                  <MessageCircle size={19} />
                 </div>
                 <div>
                   <span className="text-sm font-semibold text-white uppercase tracking-wider block">
                     WhatsApp Directo
                   </span>
-                  <span className="text-[10px] text-zinc-500 font-mono tracking-wider uppercase block">
+                  <span className="text-[10px] text-emerald-400 font-mono tracking-wider uppercase flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)] animate-pulse" />
                     Canal Principal
                   </span>
                 </div>
@@ -257,7 +276,7 @@ export default function Contact() {
                   href={whatsappUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 group/btn cursor-pointer shadow-md"
+                  className="w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 group/btn cursor-pointer shadow-[0_0_20px_rgba(37,211,102,0.3)] hover:shadow-[0_0_30px_rgba(37,211,102,0.5)] border border-emerald-400/30"
                   aria-label="Consultar disponibilidad por WhatsApp con Bryan Acosta"
                 >
                   <MessageCircle size={15} />
@@ -270,16 +289,25 @@ export default function Contact() {
           </div>
 
           {/* =========================================================================
-              RIGHT COLUMN: Formulario Limpio de Reserva
+              RIGHT COLUMN: Panel del Formulario (Glow Superior LED & Inputs Estilo Cabina)
               ========================================================================= */}
           <div className="lg:col-span-7">
-            <div className="rounded-xl bg-zinc-950 border border-zinc-900 p-6 sm:p-8">
+            <div className="relative rounded-2xl bg-zinc-950/85 backdrop-blur-xl border border-zinc-800/80 p-6 sm:p-8 lg:p-9 shadow-[0_0_50px_rgba(0,0,0,0.6)] group/panel overflow-hidden">
               
-              {/* Form Title */}
-              <div className="pb-5 mb-6 border-b border-zinc-900">
-                <h3 className="text-lg font-bold text-white tracking-tight uppercase">
-                  Detalles del Evento
-                </h3>
+              {/* Borde superior LED con degradado azul/esmeralda */}
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/80 to-emerald-400/60 shadow-[0_0_12px_rgba(59,130,246,0.6)]" />
+
+              {/* Form Title & Indicator */}
+              <div className="pb-5 mb-6 border-b border-zinc-800/80 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.9)] animate-pulse" />
+                  <h3 className="text-lg font-bold text-white tracking-tight uppercase">
+                    Detalles del Evento
+                  </h3>
+                </div>
+                <span className="text-[10px] font-mono tracking-widest uppercase text-zinc-500 hidden sm:inline-block">
+                  Formulario Oficial
+                </span>
               </div>
 
               {/* Feedback notification banner */}
@@ -291,9 +319,9 @@ export default function Contact() {
                     exit={{ opacity: 0, y: -8 }}
                     className={`mb-6 p-3.5 rounded-lg border text-xs flex items-start gap-2.5 ${
                       formFeedback.type === 'success' 
-                        ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' 
+                        ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200 shadow-[0_0_20px_rgba(16,185,129,0.15)]' 
                         : formFeedback.type === 'error'
-                        ? 'bg-red-950/30 border-red-500/30 text-red-200'
+                        ? 'bg-red-950/40 border-red-500/40 text-red-200 shadow-[0_0_20px_rgba(239,68,68,0.15)]'
                         : 'bg-zinc-900 border-zinc-800 text-zinc-300'
                     }`}
                   >
@@ -324,7 +352,7 @@ export default function Contact() {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Tu nombre o empresa organizadora"
                     required
-                    className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 text-sm transition-colors"
+                    className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 shadow-inner"
                   />
                 </div>
 
@@ -337,7 +365,7 @@ export default function Contact() {
                     id={eventTypeId}
                     value={formData.eventType}
                     onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
-                    className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors appearance-none cursor-pointer"
+                    className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 appearance-none cursor-pointer shadow-inner"
                   >
                     <option value="">Selecciona una opción</option>
                     <option value="Club / Discoteca">Club / Discoteca</option>
@@ -363,7 +391,7 @@ export default function Contact() {
                         min={minDate}
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors [color-scheme:dark]"
+                        className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 [color-scheme:dark] shadow-inner"
                       />
                       <Calendar size={15} className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
                     </div>
@@ -380,7 +408,7 @@ export default function Contact() {
                         id={timeId}
                         value={formData.time}
                         onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                        className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 text-sm transition-colors [color-scheme:dark]"
+                        className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 [color-scheme:dark] shadow-inner"
                       />
                       <Clock size={15} className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
                     </div>
@@ -398,7 +426,7 @@ export default function Contact() {
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                     placeholder="Ej. Quito, Ambato, Manta o ubicación del evento"
-                    className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 text-sm transition-colors"
+                    className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 shadow-inner"
                   />
                 </div>
 
@@ -413,15 +441,15 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Horario previsto de la sesión, equipo disponible en sala o necesidades especiales..."
-                    className="w-full bg-zinc-900/80 border border-zinc-800 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 text-sm transition-colors resize-none"
+                    className="w-full bg-zinc-900/60 border border-zinc-800 hover:border-zinc-700 rounded-lg px-4 py-3 text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/40 focus:bg-zinc-900/90 text-sm transition-all duration-200 resize-none shadow-inner"
                   ></textarea>
                 </div>
 
-                {/* Main Submit CTA */}
+                {/* Main Submit CTA con Glow Esmeralda y Borde Iluminado */}
                 <div className="pt-2">
                   <button 
                     type="submit"
-                    className="w-full py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2 group cursor-pointer shadow-md"
+                    className="w-full py-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer shadow-[0_0_25px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 active:translate-y-0 border border-emerald-400/30"
                   >
                     <MessageCircle size={16} />
                     <span>CONSULTAR DISPONIBILIDAD</span>

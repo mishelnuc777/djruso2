@@ -19,6 +19,9 @@ export const djData: DJData = {
   heroVideoPoster: "/assets/videos/hero-poster.jpg",
   // "vertical" = grabado con el celular (9:16). "horizontal" = 16:9.
   heroVideoOrientation: "vertical",
+  // ---- SEGUNDO VIDEO (SECCIÓN SONIDO) ----
+  // Archivo local que se colocará en public/assets/videos/sonido-bryan.mp4
+  soundVideo: "/assets/videos/sonido-bryan.mp4",
   profileImage: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
   genres: [
     "House",
@@ -117,7 +120,7 @@ export const djData: DJData = {
     {
       id: "srv-3",
       name: "EXTRAS Y EFECTOS ESPECIALES",
-      description: "Complementos adicionales para elevar la experiencia visual y técnica del evento.",
+      description: "Complementos adicionales para la puesta en escena y ambientación técnica del evento.",
       image: "/assets/images/bryan-service-03.jpg.jpeg",
       includes: [
         "Máquina de humo",

@@ -81,6 +81,7 @@ export interface DJData {
   heroVideoPoster?: string; // imagen mientras carga el video local
   heroYoutubeUrl?: string; // si se llena, reemplaza al video local
   heroVideoOrientation?: 'vertical' | 'horizontal';
+  soundVideo?: string; // segundo video local para sección Sonido (public/assets/videos/sonido-bryan.mp4)
   profileImage: string;
   genres: string[];
   statistics?: Statistic[];

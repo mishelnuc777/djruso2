@@ -3,6 +3,7 @@ import Hero from './components/Hero';
 import Packages from './components/Packages';
 import MusicSets from './components/MusicSets';
 import Gallery from './components/Gallery';
+import SocialLinks from './components/SocialLinks';
 import Genres from './components/Genres';
 import About from './components/About';
 import Contact from './components/Contact';
@@ -35,14 +36,17 @@ export default function App() {
         
         {/* 5. SONIDO / GÉNEROS */}
         <Genres />
+
+        {/* 6. SOCIAL LINKS */}
+        <SocialLinks />
         
-        {/* 6. ABOUT / 18 AÑOS EN ESCENA */}
+        {/* 7. ABOUT / 18 AÑOS EN ESCENA */}
         <About />
         
-        {/* 7. CONTACT / BOOKING */}
+        {/* 8. CONTACT / BOOKING */}
         <Contact />
         
-        {/* 8. FINAL CTA / DJ BRYAN ACOSTA */}
+        {/* 9. FINAL CTA / DJ BRYAN ACOSTA */}
         <FinalCTA />
       </main>
 

@@ -7,10 +7,48 @@ export default function About() {
   const artistName = 'DJ BRYAN ACOSTA';
 
   return (
-    <section id="about" className="py-28 md:py-36 bg-black relative border-t border-zinc-900 overflow-hidden">
+    <section id="about" className="scroll-mt-20 py-28 md:py-36 bg-black relative border-t border-zinc-900 overflow-hidden">
       
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[180px] pointer-events-none"></div>
+      {/* =========================================================================
+          AMBIENTE ESCÉNICO: HUMO, BRUMA ARTÍSTICA & PROFUNDIDAD CINEMATOGRÁFICA
+          ========================================================================= */}
+      
+      {/* Zona 1: Bruma cálida con matiz rojo escénico tenue detrás de la fotografía */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.07, 1], 
+          opacity: [0.65, 0.9, 0.65],
+          x: [-10, 10, -10]
+        }}
+        transition={{ 
+          duration: 14, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        className="absolute top-1/3 -left-20 w-[550px] h-[550px] bg-[radial-gradient(circle,rgba(220,38,38,0.11),rgba(147,51,234,0.05)_45%,transparent_75%)] rounded-full blur-[140px] pointer-events-none select-none z-0" 
+      />
+
+      {/* Zona 2: Nube de humo azul y violeta profundo detrás de la narrativa */}
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.08, 1], 
+          opacity: [0.55, 0.85, 0.55],
+          y: [0, -18, 0]
+        }}
+        transition={{ 
+          duration: 16, 
+          repeat: Infinity, 
+          ease: "easeInOut" 
+        }}
+        className="absolute top-1/4 right-0 w-[650px] h-[500px] bg-[radial-gradient(circle,rgba(59,130,246,0.1),rgba(99,102,241,0.05)_50%,transparent_75%)] rounded-full blur-[160px] pointer-events-none select-none z-0" 
+      />
+
+      {/* Zona 3: Bruma baja escénica central difuminada en el suelo */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.07),rgba(147,51,234,0.03)_50%,transparent_75%)] blur-[120px] pointer-events-none select-none z-0" />
+
+      {/* Zona 4: Capa orgánica sutil de humo difuso superior */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.05),transparent_60%)] pointer-events-none select-none z-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(220,38,38,0.06),transparent_40%)] pointer-events-none select-none z-0" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         
@@ -65,14 +103,14 @@ export default function About() {
           >
             {/* Section Tag */}
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-6 h-[2px] bg-blue-500"></span>
-              <span className="text-blue-400 font-bold tracking-[0.28em] uppercase text-xs">
+              <span className="w-6 h-[2px] bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+              <span className="text-blue-400 font-bold tracking-[0.28em] uppercase text-xs drop-shadow-sm">
                 TRAYECTORIA
               </span>
             </div>
 
             {/* Monumental Headline: 18 AÑOS EN ESCENA */}
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase mb-8 leading-[0.9]">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase mb-8 leading-[0.9] drop-shadow-lg">
               18 AÑOS<br />EN ESCENA
             </h2>
             
