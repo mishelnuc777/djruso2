@@ -180,7 +180,7 @@ export default function Contact() {
                         Correo de Booking
                       </span>
                       <a 
-                        href={`mailto:${djData.contact.email}?subject=${encodeURIComponent('Consulta de Booking - DJ Ruso')}`}
+                        href={`mailto:${djData.contact.email}?subject=${encodeURIComponent('Consulta de Booking - DJ Bryan Acosta')}`}
                         className="text-white font-bold text-sm sm:text-base hover:text-blue-400 transition-colors"
                       >
                         {djData.contact.email}

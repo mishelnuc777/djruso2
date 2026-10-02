@@ -119,7 +119,7 @@ export default function SocialLinks() {
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight uppercase">
-              Conecta con DJ Ruso
+              Conecta con DJ Bryan Acosta
             </h2>
             <p className="text-zinc-400 text-sm sm:text-base font-light max-w-xl mt-3 leading-relaxed">
               Sigue la actividad en cabina, próximos anuncios de eventos y producciones audiovisuales a través de los canales oficiales.
@@ -226,7 +226,7 @@ export default function SocialLinks() {
               Contrataciones & Fechas
             </span>
             <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
-              ¿Quieres a DJ Ruso en tu próximo evento?
+              ¿Quieres a DJ Bryan Acosta en tu próximo evento?
             </h3>
             <p className="text-zinc-400 text-xs sm:text-sm font-light mt-1.5 max-w-lg">
               Consulta disponibilidad y agenda con anticipación para clubs, festivales y celebraciones exclusivas.

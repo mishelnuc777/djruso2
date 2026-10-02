@@ -7,6 +7,7 @@ import Packages from './components/Packages';
 import Gallery from './components/Gallery';
 import SocialLinks from './components/SocialLinks';
 import Contact from './components/Contact';
+import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
         <Gallery />
         <SocialLinks />
         <Contact />
+        <FinalCTA />
       </main>
 
       <Footer />

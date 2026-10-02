@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { djData } from '../data/djData';
-import { Disc3 } from 'lucide-react';
+import { Disc3, Volume2, VolumeX } from 'lucide-react';
 import { parseYouTube, youTubeEmbedUrl } from '../utils/media';
 
 const WHATSAPP_HERO_URL = "https://wa.me/593992710709?text=Hola%20Bryan%2C%20vi%20tu%20p%C3%A1gina%20web%20y%20quisiera%20informaci%C3%B3n%20para%20contratar%20tus%20servicios.";
@@ -23,6 +23,25 @@ export default function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  // Toggle video audio without resetting currentTime
+  const handleToggleSound = () => {
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    if (isMuted) {
+      videoEl.muted = false;
+      videoEl.volume = 0.18; // 18% initial volume
+      if (videoEl.paused) {
+        videoEl.play().catch(() => {});
+      }
+      setIsMuted(false);
+    } else {
+      videoEl.muted = true;
+      setIsMuted(true);
+    }
+  };
 
   // YouTube video support (has priority if a URL is explicitly defined in djData)
   const youtube = parseYouTube(djData.heroYoutubeUrl);
@@ -261,6 +280,45 @@ export default function Hero() {
           Deslizar para explorar
         </span>
       </motion.div>
+
+      {/* =========================================================================
+          ELEGANT AUDIO CONTROL (Direct video volume & mute handling)
+          ========================================================================= */}
+      {hasLocalVideo && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+          className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 lg:right-12 z-20"
+        >
+          <button
+            type="button"
+            onClick={handleToggleSound}
+            aria-label={isMuted ? "Activar sonido del video (18% de volumen)" : "Silenciar video"}
+            className="group inline-flex items-center gap-2.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/15 hover:border-blue-500/50 transition-all duration-300 text-white shadow-xl cursor-pointer select-none active:scale-95"
+          >
+            <span className="relative flex items-center justify-center">
+              {isMuted ? (
+                <VolumeX size={16} className="text-zinc-300 group-hover:text-white transition-colors" />
+              ) : (
+                <Volume2 size={16} className="text-blue-400 group-hover:text-blue-300 transition-colors" />
+              )}
+              {/* Subtle blue accent dot */}
+              <span 
+                className={`absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full ${
+                  isMuted 
+                    ? 'bg-zinc-600' 
+                    : 'bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.9)]'
+                }`} 
+              />
+            </span>
+
+            <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-zinc-300 group-hover:text-white transition-colors">
+              {isMuted ? 'Activar sonido' : 'Silenciar'}
+            </span>
+          </button>
+        </motion.div>
+      )}
     </section>
   );
 }

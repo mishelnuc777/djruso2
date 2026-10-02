@@ -12,7 +12,20 @@ interface GalleryItem {
 }
 
 // Imágenes reales disponibles dentro de /public/assets/gallery/
-const galleryPhotos: GalleryItem[] = [];
+const galleryPhotos: GalleryItem[] = [
+  { id: 'gal-01', url: '/assets/gallery/gallery-01.jpg.jpeg', alt: 'DJ Bryan Acosta en cabina en vivo' },
+  { id: 'gal-02', url: '/assets/gallery/gallery-02.jpg.jpeg', alt: 'Montaje de iluminación y producción escénica' },
+  { id: 'gal-03', url: '/assets/gallery/gallery-03.jpg.jpeg', alt: 'Público y pista de baile en fiesta' },
+  { id: 'gal-04', url: '/assets/gallery/gallery-04.jpg.jpeg', alt: 'Equipamiento profesional de sonido y controlador' },
+  { id: 'gal-05', url: '/assets/gallery/gallery-05.jpg.jpeg', alt: 'Efectos especiales y máquinas de humo en vivo' },
+  { id: 'gal-06', url: '/assets/gallery/gallery-06.jpg.jpeg', alt: 'Presentación en evento corporativo y social' },
+  { id: 'gal-07', url: '/assets/gallery/gallery-07.jpg.jpeg', alt: 'Show de luces robotizadas y visuales' },
+  { id: 'gal-08', url: '/assets/gallery/gallery-08.jpg.jpeg', alt: 'Ambiente nocturno y energía del público' },
+  { id: 'gal-09', url: '/assets/gallery/gallery-09.jpg.jpeg', alt: 'Sesión de mezcla y tornamesas en vivo' },
+  { id: 'gal-10', url: '/assets/gallery/gallery-10.jpg.jpeg', alt: 'Pantallas LED y estructura para eventos' },
+  { id: 'gal-11', url: '/assets/gallery/gallery-11.jpg.jpeg', alt: 'Celebración y fiesta privada en Quito' },
+  { id: 'gal-12', url: '/assets/gallery/gallery-12.jpg.jpeg', alt: 'Producción sonora y show completo de DJ' },
+];
 
 // Videos de YouTube configurados en src/data/djData.ts (galleryVideos): se agregan después de las fotos
 const galleryVideoItems: GalleryItem[] = (djData.galleryVideos ?? []).flatMap((video) => {
