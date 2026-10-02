@@ -29,11 +29,11 @@ export default function About() {
             {/* Architectural Frame */}
             <div className="relative rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800/90 shadow-2xl group">
               <div className="aspect-[4/5] w-full overflow-hidden relative">
-                {/* Fotografía nítida con colores 100% originales y sin filtros */}
+                {/* Fotografía oficial de biografía (Bryan Acosta) sin filtros agresivos */}
                 <img 
-                  src="/assets/images/bryan-final.png.png" 
-                  alt={`Fotografía oficial de ${artistName}`} 
-                  className="w-full h-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105 relative z-0"
+                  src="/assets/images/bryan-bio.png.png" 
+                  alt={`Fotografía oficial de ${artistName} - Detrás de la Música`} 
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105 relative z-0"
                   loading="eager"
                 />
                 

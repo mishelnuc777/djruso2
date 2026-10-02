@@ -42,15 +42,15 @@ export default function Packages() {
     switch (index) {
       case 0:
         // Show DJ: encuadre superior para rostro, gafas y cabina de Bryan Acosta
-        return 'object-[center_top]';
+        return 'object-cover object-[center_top]';
       case 1:
         // Producción Técnica: estructura, iluminación y sonido en escena
-        return 'object-[center_top]';
+        return 'object-cover object-[center_20%]';
       case 2:
-        // Efectos Especiales: chispas frías y atmósfera
-        return 'object-[center_top]';
+        // Efectos & Extras: preserva diseño y gráfica completa sin cortes
+        return 'object-contain object-center';
       default:
-        return 'object-[center_top]';
+        return 'object-cover object-center';
     }
   };
 
@@ -123,20 +123,30 @@ export default function Packages() {
                     : 'border-zinc-800/90 hover:border-zinc-700'
                 }`}
               >
-                {/* Visual Image Header */}
-                <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] w-full overflow-hidden bg-zinc-900">
+                {/* Visual Image Header - Tall vertical composition for full photo visibility */}
+                <div className="relative h-[380px] sm:h-[400px] lg:h-[420px] w-full overflow-hidden bg-zinc-950">
                   {pkg.image && (
-                    <img
-                      src={pkg.image}
-                      alt={cardTitle}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading={index === 0 ? 'eager' : 'lazy'}
-                    />
+                    <div className="w-full h-full relative">
+                      {index === 2 && (
+                        <img
+                          src={pkg.image}
+                          alt=""
+                          aria-hidden="true"
+                          className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-30 scale-110 pointer-events-none"
+                        />
+                      )}
+                      <img
+                        src={pkg.image}
+                        alt={cardTitle}
+                        className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-105 relative z-0 ${getServiceImagePosition(index)}`}
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                      />
+                    </div>
                   )}
                   
-                  {/* Dark gradient overlay blending with card body */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
-                  <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors duration-500"></div>
+                  {/* Subtle dark gradient at bottom blending into card body */}
+                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent pointer-events-none z-10"></div>
+                  <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors duration-500 pointer-events-none z-10"></div>
 
                   {/* Top Left Floating Category Tag */}
                   <div className="absolute top-4 left-4 z-10">
