@@ -12,6 +12,7 @@ const SECOND_VIDEO_SRC = djData.soundVideo || "/assets/videos/sonido-bryan.mp4";
 export default function Genres() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const isSectionVisibleRef = useRef(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
@@ -44,31 +45,62 @@ export default function Genres() {
     }
   };
 
-  // Detección de visibilidad con IntersectionObserver (rootMargin: 300px 0px):
-  // 1. NO descarga ni reproduce el MP4 desde el inicio.
-  // 2. Al acercarse a 300px: habilita y monta el video en segundo plano.
-  // 3. Al salir de pantalla: pausa inmediatamente y silencia.
-  // 4. Al volver a entrar: reanuda reproducción siempre silenciado (nunca reactiva audio automáticamente).
+  // ===========================================================================
+  // OBSERVER 1 — PRECARGA:
+  // Detecta con anticipación (rootMargin: "300px 0px") la aproximación a la sección.
+  // Su ÚNICA responsabilidad es habilitar shouldLoadVideo = true sin demorar la carga.
+  // Una vez activado, se mantiene en memoria para no desmontar el elemento.
+  // ===========================================================================
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl || shouldLoadVideo) return;
+
+    const preloadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadVideo(true);
+          }
+        });
+      },
+      { rootMargin: "300px 0px" }
+    );
+
+    preloadObserver.observe(sectionEl);
+
+    return () => {
+      preloadObserver.disconnect();
+    };
+  }, [shouldLoadVideo]);
+
+  // ===========================================================================
+  // OBSERVER 2 — VISIBILIDAD REAL:
+  // Sin margen extendido (rootMargin: "0px", threshold: 0.05).
+  // Controla reproducción y audio estrictamente según la visibilidad real en pantalla.
+  // Al entrar en pantalla: inicia o reanuda reproducción siempre silenciado.
+  // Al salir de la sección: pausa inmediatamente y silencia (sin delay de 300px).
+  // ===========================================================================
   useEffect(() => {
     const sectionEl = sectionRef.current;
     if (!sectionEl) return;
 
-    const observer = new IntersectionObserver(
+    const visibilityObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Cerca o dentro del viewport: preparar y reproducir silenciado
-            setShouldLoadVideo(true);
+          isSectionVisibleRef.current = entry.isIntersecting;
+          const videoEl = videoRef.current;
 
-            const videoEl = videoRef.current;
+          if (entry.isIntersecting) {
+            // Sección realmente visible: reanudar reproducción siempre silenciado
             if (videoEl) {
               videoEl.muted = true;
               setIsMuted(true);
-              videoEl.play().catch(() => {});
+              if (videoEl.paused) {
+                videoEl.play().catch(() => {});
+              }
             }
           } else {
-            // Fuera de pantalla: silenciar y pausar
-            const videoEl = videoRef.current;
+            // Sección fuera de pantalla: pausar de inmediato y silenciar
             if (videoEl) {
               videoEl.muted = true;
               setIsMuted(true);
@@ -77,17 +109,17 @@ export default function Genres() {
           }
         });
       },
-      { rootMargin: "300px 0px", threshold: 0.05 }
+      { rootMargin: "0px", threshold: 0.05 }
     );
 
-    observer.observe(sectionEl);
+    visibilityObserver.observe(sectionEl);
 
     return () => {
-      observer.disconnect();
+      visibilityObserver.disconnect();
     };
   }, []);
 
-  // Autoplay silenciado cuando el elemento video se monta por primera vez
+  // Autoplay silenciado cuando el elemento video se monta y la sección ya es visible
   useEffect(() => {
     if (!shouldLoadVideo) return;
 
@@ -97,13 +129,15 @@ export default function Genres() {
     videoEl.defaultMuted = true;
     videoEl.muted = true;
 
-    const playPromise = videoEl.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => setVideoLoaded(true))
-        .catch(() => {
-          // Autoplay bloqueado por políticas del navegador hasta interacción
-        });
+    if (isSectionVisibleRef.current) {
+      const playPromise = videoEl.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setVideoLoaded(true))
+          .catch(() => {
+            // Autoplay bloqueado por políticas del navegador hasta interacción
+          });
+      }
     }
   }, [shouldLoadVideo]);
 
@@ -138,14 +172,13 @@ export default function Genres() {
       />
 
       {/* =======================================================================
-          3. SEGUNDO VIDEO DE FONDO COMPLETO (Lazy load con rootMargin 300px)
+          3. SEGUNDO VIDEO DE FONDO COMPLETO (Precarga a 300px + control de visibilidad real)
           ======================================================================= */}
       {shouldLoadVideo && !videoFailed && (
         <video
           ref={videoRef}
           src={SECOND_VIDEO_SRC}
           poster={SECOND_VIDEO_POSTER}
-          autoPlay
           loop
           muted
           playsInline
