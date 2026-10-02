@@ -15,7 +15,7 @@ export const djData: DJData = {
   // Si lo llenas, reemplaza al video local. Ej: "https://youtube.com/shorts/XXXXXXXXXXX"
   heroYoutubeUrl: "",
   // Opción B: video local (ya optimizado desde tu IMG_3623.MP4).
-  heroVideo: "/assets/videos/hero-vertical.mp4",
+  heroVideo: "/assets/videos/hero-bryan-final.mp4",
   heroVideoPoster: "/assets/videos/hero-poster.jpg",
   // "vertical" = grabado con el celular (9:16). "horizontal" = 16:9.
   heroVideoOrientation: "vertical",
