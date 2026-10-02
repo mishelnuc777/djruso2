@@ -10,7 +10,9 @@ const SECOND_VIDEO_POSTER = "/assets/videos/sonido-poster-opcion-1-HQ.png";
 const SECOND_VIDEO_SRC = djData.soundVideo || "/assets/videos/sonido-bryan.mp4";
 
 export default function Genres() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -24,14 +26,14 @@ export default function Genres() {
     "Comercial"
   ];
 
-  // Control independiente de sonido para el segundo video
+  // Control independiente de sonido para el segundo video (18% volumen confortable)
   const handleToggleSound = () => {
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
     if (isMuted) {
       videoEl.muted = false;
-      videoEl.volume = 0.18; // 18% de volumen confortable
+      videoEl.volume = 0.18;
       if (videoEl.paused) {
         videoEl.play().catch(() => {});
       }
@@ -42,41 +44,68 @@ export default function Genres() {
     }
   };
 
-  // Autoplay silenciado en montaje con tolerancia a políticas de navegador
+  // Detección de visibilidad con IntersectionObserver (rootMargin: 300px 0px):
+  // 1. NO descarga ni reproduce el MP4 desde el inicio.
+  // 2. Al acercarse a 300px: habilita y monta el video en segundo plano.
+  // 3. Al salir de pantalla: pausa inmediatamente y silencia.
+  // 4. Al volver a entrar: reanuda reproducción siempre silenciado (nunca reactiva audio automáticamente).
   useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Cerca o dentro del viewport: preparar y reproducir silenciado
+            setShouldLoadVideo(true);
+
+            const videoEl = videoRef.current;
+            if (videoEl) {
+              videoEl.muted = true;
+              setIsMuted(true);
+              videoEl.play().catch(() => {});
+            }
+          } else {
+            // Fuera de pantalla: silenciar y pausar
+            const videoEl = videoRef.current;
+            if (videoEl) {
+              videoEl.muted = true;
+              setIsMuted(true);
+              videoEl.pause();
+            }
+          }
+        });
+      },
+      { rootMargin: "300px 0px", threshold: 0.05 }
+    );
+
+    observer.observe(sectionEl);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  // Autoplay silenciado cuando el elemento video se monta por primera vez
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
     videoEl.defaultMuted = true;
     videoEl.muted = true;
 
-    const attemptPlay = () => {
-      const playPromise = videoEl.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => setVideoLoaded(true))
-          .catch(() => {
-            // Autoplay bloqueado por el navegador; espera interacción
-          });
-      }
-    };
-
-    attemptPlay();
-
-    const handleInteraction = () => {
-      attemptPlay();
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-    };
-
-    window.addEventListener('click', handleInteraction, { passive: true, once: true });
-    window.addEventListener('touchstart', handleInteraction, { passive: true, once: true });
-
-    return () => {
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
-    };
-  }, []);
+    const playPromise = videoEl.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => setVideoLoaded(true))
+        .catch(() => {
+          // Autoplay bloqueado por políticas del navegador hasta interacción
+        });
+    }
+  }, [shouldLoadVideo]);
 
   // Dividir los 6 géneros en 2 columnas equilibradas para desktop (3 y 3)
   const midpoint = Math.ceil(genresList.length / 2);
@@ -86,6 +115,7 @@ export default function Genres() {
   return (
     <section 
       id="genres" 
+      ref={sectionRef}
       className="scroll-mt-20 relative min-h-[75vh] lg:min-h-[85vh] w-full flex items-center justify-center bg-black overflow-hidden py-24 md:py-32"
     >
       {/* =======================================================================
@@ -103,14 +133,14 @@ export default function Genres() {
         alt=""
         aria-hidden="true"
         className={`absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none z-0 transition-opacity duration-1000 ${
-          videoLoaded && !videoFailed ? 'opacity-0' : 'opacity-100'
+          shouldLoadVideo && videoLoaded && !videoFailed ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
       {/* =======================================================================
-          3. SEGUNDO VIDEO DE FONDO COMPLETO (Autoplay + Loop + Muted + PlaysInline)
+          3. SEGUNDO VIDEO DE FONDO COMPLETO (Lazy load con rootMargin 300px)
           ======================================================================= */}
-      {!videoFailed && (
+      {shouldLoadVideo && !videoFailed && (
         <video
           ref={videoRef}
           src={SECOND_VIDEO_SRC}
@@ -246,9 +276,9 @@ export default function Genres() {
       </div>
 
       {/* =======================================================================
-          6. CONTROL INDEPENDIENTE DE AUDIO (Visible únicamente cuando el video está disponible)
+          6. CONTROL INDEPENDIENTE DE AUDIO (Visible únicamente cuando el video está cargado y listo)
           ======================================================================= */}
-      {videoLoaded && !videoFailed && (
+      {shouldLoadVideo && videoLoaded && !videoFailed && (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

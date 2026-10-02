@@ -20,19 +20,20 @@ function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  // Toggle video audio without resetting currentTime
+  // Control de audio del video principal
   const handleToggleSound = () => {
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
     if (isMuted) {
       videoEl.muted = false;
-      videoEl.volume = 0.18; // 18% initial volume
+      videoEl.volume = 0.18; // 18% de volumen confortable
       if (videoEl.paused) {
         videoEl.play().catch(() => {});
       }
@@ -52,7 +53,7 @@ export default function Hero() {
   const hasLocalVideo = Boolean(localVideoSrc) && !videoFailed && !hasYoutube;
   const posterSrc = djData.heroVideoPoster || '/assets/videos/hero-poster.jpg';
 
-  // Video autoplay handling (muted, looped, safe fallback)
+  // Video autoplay inicial y tolerancia a interacción
   useEffect(() => {
     if (!hasLocalVideo) return;
 
@@ -68,14 +69,13 @@ export default function Hero() {
         playPromise
           .then(() => setVideoLoaded(true))
           .catch(() => {
-            // Autoplay constrained by browser policy; poster image remains visible
+            // Autoplay bloqueado por políticas de navegador hasta interacción
           });
       }
     };
 
     attemptPlay();
 
-    // Fallback: trigger playback on first user touch/click if browser blocked autoplay
     const handleInteraction = () => {
       attemptPlay();
       window.removeEventListener('click', handleInteraction);
@@ -91,6 +91,42 @@ export default function Hero() {
     };
   }, [hasLocalVideo]);
 
+  // Detección de visibilidad con IntersectionObserver:
+  // Al salir de pantalla: silenciar y pausar
+  // Al volver a entrar: reiniciar reproducción silenciado (nunca reactivar audio automáticamente)
+  useEffect(() => {
+    const sectionEl = sectionRef.current;
+    if (!sectionEl || !hasLocalVideo) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const videoEl = videoRef.current;
+          if (!videoEl) return;
+
+          if (!entry.isIntersecting) {
+            // Fuera de pantalla: silenciar y pausar
+            videoEl.muted = true;
+            setIsMuted(true);
+            videoEl.pause();
+          } else {
+            // De vuelta en pantalla: reproducir siempre silenciado
+            videoEl.muted = true;
+            setIsMuted(true);
+            videoEl.play().catch(() => {});
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(sectionEl);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [hasLocalVideo]);
+
   const artistName = 'DJ BRYAN ACOSTA';
   const displaySlogan = 'Desde la última loma de Caspigasi';
   const displayDescription = 'Más de 18 años en cabina, con una selección versátil, sets y mezclas para eventos y escenarios en todo Ecuador.';
@@ -98,6 +134,7 @@ export default function Hero() {
   return (
     <section 
       id="home" 
+      ref={sectionRef}
       className="relative min-h-screen w-full flex items-center overflow-hidden bg-black"
     >
       {/* =========================================================================
