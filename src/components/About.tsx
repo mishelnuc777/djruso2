@@ -31,7 +31,7 @@ export default function About() {
               <div className="aspect-[4/5] w-full overflow-hidden relative">
                 {/* Fotografía nítida con colores 100% originales y sin filtros */}
                 <img 
-                  src="/assets/gallery/bryan-bio.png" 
+                  src="/assets/images/bryan-final.png.png" 
                   alt={`Fotografía oficial de ${artistName}`} 
                   className="w-full h-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105 relative z-0"
                   loading="eager"

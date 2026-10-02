@@ -90,7 +90,7 @@ export const djData: DJData = {
       id: "srv-1",
       name: "SHOW DJ",
       description: "Presentación de DJ para eventos, con sets adaptados al público y al tipo de celebración.",
-      image: "/assets/gallery/gallery-01.jpg",
+      image: "/assets/images/bryan-service-01.jpg.jpeg",
       includes: [
         "DJ",
         "Controlador",
@@ -102,7 +102,7 @@ export const djData: DJData = {
       id: "srv-2",
       name: "PRODUCCIÓN PARA EVENTOS",
       description: "Soluciones completas de sonido, iluminación y equipamiento técnico según las necesidades de cada evento.",
-      image: "/assets/gallery/gallery-03.jpg",
+      image: "/assets/images/bryan-service-02.png.PNG",
       includes: [
         "Sonido profesional",
         "Iluminación",
@@ -118,7 +118,7 @@ export const djData: DJData = {
       id: "srv-3",
       name: "EXTRAS Y EFECTOS ESPECIALES",
       description: "Complementos adicionales para elevar la experiencia visual y técnica del evento.",
-      image: "/assets/gallery/gallery-04.jpg",
+      image: "/assets/images/bryan-service-03.jpg.jpeg",
       includes: [
         "Máquina de humo",
         "Pirotecnia fría",

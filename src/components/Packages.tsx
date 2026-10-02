@@ -38,6 +38,22 @@ export default function Packages() {
     }
   };
 
+  const getServiceImagePosition = (index: number) => {
+    switch (index) {
+      case 0:
+        // Show DJ: encuadre superior para rostro, gafas y cabina de Bryan Acosta
+        return 'object-[center_top]';
+      case 1:
+        // Producción Técnica: estructura, iluminación y sonido en escena
+        return 'object-[center_top]';
+      case 2:
+        // Efectos Especiales: chispas frías y atmósfera
+        return 'object-[center_top]';
+      default:
+        return 'object-[center_top]';
+    }
+  };
+
   return (
     <section id="packages" className="py-24 md:py-32 bg-black relative border-t border-zinc-900 overflow-hidden">
       

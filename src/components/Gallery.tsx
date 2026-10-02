@@ -11,20 +11,8 @@ interface GalleryItem {
   videoUrl?: string; // enlace de YouTube (solo para videos)
 }
 
-const galleryPhotos: GalleryItem[] = [
-  { id: 'gal-01', url: '/assets/gallery/gallery-01.jpg', alt: 'Registro visual 01' },
-  { id: 'gal-02', url: '/assets/gallery/gallery-02.jpg', alt: 'Registro visual 02' },
-  { id: 'gal-03', url: '/assets/gallery/gallery-03.jpg', alt: 'Registro visual 03' },
-  { id: 'gal-04', url: '/assets/gallery/gallery-04.jpg', alt: 'Registro visual 04' },
-  { id: 'gal-05', url: '/assets/gallery/gallery-05.jpg', alt: 'Registro visual 05' },
-  { id: 'gal-06', url: '/assets/gallery/gallery-06.jpg', alt: 'Registro visual 06' },
-  { id: 'gal-07', url: '/assets/gallery/gallery-07.jpg', alt: 'Registro visual 07' },
-  { id: 'gal-08', url: '/assets/gallery/gallery-08.jpg', alt: 'Registro visual 08' },
-  { id: 'gal-09', url: '/assets/gallery/gallery-09.jpg', alt: 'Registro visual 09' },
-  { id: 'gal-10', url: '/assets/gallery/gallery-10.jpg', alt: 'Registro visual 10' },
-  { id: 'gal-11', url: '/assets/gallery/gallery-11.jpg', alt: 'Registro visual 11' },
-  { id: 'gal-12', url: '/assets/gallery/gallery-12.jpg', alt: 'Registro visual 12' },
-];
+// Imágenes reales disponibles dentro de /public/assets/gallery/
+const galleryPhotos: GalleryItem[] = [];
 
 // Videos de YouTube configurados en src/data/djData.ts (galleryVideos): se agregan después de las fotos
 const galleryVideoItems: GalleryItem[] = (djData.galleryVideos ?? []).flatMap((video) => {
@@ -113,8 +101,14 @@ export default function Gallery() {
 
           <div className="text-xs text-zinc-500 uppercase tracking-widest font-semibold pb-1">
             <span>
-              {galleryPhotos.length} Fotografías
-              {galleryVideoItems.length > 0 && ` · ${galleryVideoItems.length} ${galleryVideoItems.length === 1 ? 'Video' : 'Videos'}`}
+              {hasItems ? (
+                <>
+                  {galleryPhotos.length} Fotografías
+                  {galleryVideoItems.length > 0 && ` · ${galleryVideoItems.length} ${galleryVideoItems.length === 1 ? 'Video' : 'Videos'}`}
+                </>
+              ) : (
+                'Próximamente'
+              )}
             </span>
           </div>
         </div>
@@ -122,7 +116,7 @@ export default function Gallery() {
         {/* =========================================================================
             ASYMMETRIC EDITORIAL GRID (12 ITEMS)
             ========================================================================= */}
-        {hasItems && (
+        {hasItems ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
             {galleryItems.map((image, index) => {
               const altText = getSanitizedAlt(image.alt, index);
@@ -211,6 +205,12 @@ export default function Gallery() {
                 </motion.div>
               );
             })}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 p-12 text-center max-w-xl mx-auto backdrop-blur-sm">
+            <p className="text-zinc-400 text-sm font-light">
+              Próximamente nuevas fotografías y registro visual en vivo de festivales y eventos.
+            </p>
           </div>
         )}
 
