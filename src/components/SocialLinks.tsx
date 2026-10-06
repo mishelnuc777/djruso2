@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { Instagram, Youtube, ArrowUpRight } from 'lucide-react';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
 // TikTok SVG Icon (vector nítido de alta precisión)
 function TikTokIcon({ className = "w-6 h-6" }: { className?: string }) {
@@ -123,19 +124,21 @@ const socialChannels: SocialChannel[] = [
 ];
 
 export default function SocialLinks() {
+  const isDesktop = useIsDesktop();
+
   return (
     <section id="social" className="scroll-mt-20 py-24 md:py-32 lg:py-36 bg-black relative border-t border-zinc-900 overflow-hidden">
       
       {/* =========================================================================
           AMBIENTE DE ESCENARIO: LUCES SUTILES, BRUMA & HUMO FLOTANTE
           ========================================================================= */}
-      {/* Foco de luz violeta/azul flotante (breathe sutil) */}
+      {/* Foco de luz violeta/azul flotante (breathe sutil en desktop) */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.08, 1], 
           opacity: [0.65, 0.9, 0.65],
           x: [0, 20, 0]
-        }}
+        } : undefined}
         transition={{ 
           duration: 10, 
           repeat: Infinity, 
@@ -146,11 +149,11 @@ export default function SocialLinks() {
 
       {/* Foco de luz magenta/cian dinámico */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.1, 1], 
           opacity: [0.5, 0.75, 0.5],
           y: [0, -25, 0]
-        }}
+        } : undefined}
         transition={{ 
           duration: 12, 
           repeat: Infinity, 

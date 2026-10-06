@@ -37,7 +37,7 @@ export default function Navbar() {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-black/85 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl' 
+          ? 'bg-black/90 md:bg-black/85 backdrop-blur-md md:backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl' 
           : 'bg-gradient-to-b from-black/90 via-black/40 to-transparent py-5'
       }`}
     >
@@ -87,7 +87,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-2xl border-b border-zinc-800/80 px-6 py-6 flex flex-col space-y-4 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-md border-b border-zinc-800/80 px-6 py-6 flex flex-col space-y-4 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
           {navLinks.map((link) => (
             <a 
               key={link.name} 

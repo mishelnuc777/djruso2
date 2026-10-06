@@ -1,8 +1,11 @@
 import { motion } from 'motion/react';
 import { djData } from '../data/djData';
 import { ArrowRight } from 'lucide-react';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
 export default function Packages() {
+  const isDesktop = useIsDesktop();
+
   const getFormattedTitle = (name: string) => {
     if (name.toUpperCase().includes('PRODUCCIÓN')) {
       return (
@@ -45,13 +48,13 @@ export default function Packages() {
           ATMÓSFERA EDITORIAL SUTIL (Humo y luces difusas de alta gama, nunca estridentes)
           ========================================================================= */}
       
-      {/* Foco azul profundo superior derecho (breathe sutil y difuminado) */}
+      {/* Foco azul profundo superior derecho (breathe sutil y difuminado en desktop) */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.06, 1], 
           opacity: [0.45, 0.7, 0.45],
           y: [-12, 10, -12]
-        }}
+        } : undefined}
         transition={{ 
           duration: 18, 
           repeat: Infinity, 
@@ -62,11 +65,11 @@ export default function Packages() {
 
       {/* Foco violeta oscuro y rojo tenue en zona media izquierda */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.05, 1], 
           opacity: [0.35, 0.6, 0.35],
           x: [10, -12, 10]
-        }}
+        } : undefined}
         transition={{ 
           duration: 20, 
           repeat: Infinity, 
@@ -143,6 +146,7 @@ export default function Packages() {
                             alt={pkg.name} 
                             className={`w-full h-full ${getImageObjectPosition(index)}`}
                             loading={index === 0 ? 'eager' : 'lazy'}
+                            decoding="async"
                           />
                         )}
                         {/* Gradiente sutil inferior */}
@@ -198,6 +202,7 @@ export default function Packages() {
                           alt={pkg.name} 
                           className={`w-full h-full transition-transform duration-1000 ease-out group-hover:scale-[1.015] ${getImageObjectPosition(index)}`}
                           loading={index === 0 ? 'eager' : 'lazy'}
+                          decoding="async"
                         />
                       )}
                       

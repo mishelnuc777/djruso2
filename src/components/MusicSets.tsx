@@ -140,7 +140,8 @@ export default function MusicSets() {
                     src={getCover(set)} 
                     alt={displayTitle}
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    loading={index === 0 ? 'eager' : 'lazy'}
+                    loading="lazy"
+                    decoding="async"
                     onError={(e) => {
                       const yt = parseYouTube(set.url);
                       if (yt && !e.currentTarget.src.includes('hqdefault')) {

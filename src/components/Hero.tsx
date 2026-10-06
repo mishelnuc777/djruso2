@@ -146,7 +146,7 @@ export default function Hero() {
         <img 
           src={posterSrc} 
           alt={`Presentación oficial de ${artistName}`} 
-          className={`absolute inset-0 w-full h-full object-cover object-center brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover object-center md:brightness-[1.15] md:contrast-[1.05] md:saturate-[1.10] transition-opacity duration-1000 ${
             videoLoaded ? 'opacity-0' : 'opacity-100'
           }`}
           loading="eager"
@@ -168,7 +168,7 @@ export default function Hero() {
               onLoadedData={() => setVideoLoaded(true)}
               onPlaying={() => setVideoLoaded(true)}
               onError={() => setVideoFailed(true)}
-              className={`w-full h-full object-cover object-center brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
+              className={`w-full h-full object-cover object-center md:brightness-[1.15] md:contrast-[1.05] md:saturate-[1.10] transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               aria-hidden="true"
@@ -186,7 +186,7 @@ export default function Hero() {
               referrerPolicy="strict-origin-when-cross-origin"
               tabIndex={-1}
               onLoad={() => setVideoLoaded(true)}
-              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full border-0 brightness-[1.15] contrast-[1.05] saturate-[1.10] transition-opacity duration-1000 ${
+              className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full border-0 md:brightness-[1.15] md:contrast-[1.05] md:saturate-[1.10] transition-opacity duration-1000 ${
                 videoLoaded ? 'opacity-100' : 'opacity-0'
               }`}
             />

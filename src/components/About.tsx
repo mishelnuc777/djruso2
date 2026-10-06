@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
 const WHATSAPP_URL = "https://wa.me/593992710709?text=Hola%20Bryan%2C%20vi%20tu%20p%C3%A1gina%20web%20y%20quisiera%20cotizar%20un%20evento.%20%C2%BFMe%20ayudas%20con%20disponibilidad%20y%20opciones%3F";
 
 export default function About() {
+  const isDesktop = useIsDesktop();
   const artistName = 'DJ BRYAN ACOSTA';
 
   return (
@@ -15,11 +17,11 @@ export default function About() {
       
       {/* Zona 1: Bruma cálida con matiz rojo escénico tenue detrás de la fotografía */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.07, 1], 
           opacity: [0.65, 0.9, 0.65],
           x: [-10, 10, -10]
-        }}
+        } : undefined}
         transition={{ 
           duration: 14, 
           repeat: Infinity, 
@@ -30,11 +32,11 @@ export default function About() {
 
       {/* Zona 2: Nube de humo azul y violeta profundo detrás de la narrativa */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.08, 1], 
           opacity: [0.55, 0.85, 0.55],
           y: [0, -18, 0]
-        }}
+        } : undefined}
         transition={{ 
           duration: 16, 
           repeat: Infinity, 
@@ -71,7 +73,8 @@ export default function About() {
                   src="/assets/images/bryan-bio.png.png" 
                   alt={`Fotografía oficial de ${artistName} - Trayectoria`} 
                   className="w-full h-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-105"
-                  loading="eager"
+                  loading="lazy"
+                  decoding="async"
                 />
                 
                 {/* Seamless lower gradient blend */}

@@ -17,7 +17,7 @@ function WhatsAppIcon({ className = "w-5 h-5" }: { className?: string }) {
 
 export default function FinalCTA() {
   return (
-    <section className="relative py-24 md:py-36 bg-black border-t border-zinc-900 overflow-hidden">
+    <section className="content-visibility-auto relative py-24 md:py-36 bg-black border-t border-zinc-900 overflow-hidden">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/5 rounded-full blur-[180px] pointer-events-none"></div>
@@ -40,6 +40,7 @@ export default function FinalCTA() {
                 alt="DJ Bryan Acosta"
                 className="w-full h-full object-cover object-top transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
                 loading="lazy"
+                decoding="async"
               />
               
               {/* Cinematic bottom gradient blend so photo feels natural */}

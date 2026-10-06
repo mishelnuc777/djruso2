@@ -7,7 +7,49 @@
   }
 }
 
-/* Subtle cinematic film grain overlay for artist / concert aesthetic */
+/* Subtle cinematic film grain overlay for artist / concert aesthetic (active on desktop) */
 .grain-overlay {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* Disable full-screen fixed SVG filter compositing on mobile / touch devices and reduced-motion */
+@media (max-width: 768px), (hover: none) and (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .grain-overlay {
+    display: none !important;
+  }
+}
+
+/* Accessible reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile GPU performance optimization: cap extreme blur radii (120px-190px) to reasonable mobile ranges (48px-64px) */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  .blur-\[140px\],
+  .blur-\[150px\],
+  .blur-\[160px\],
+  .blur-\[170px\],
+  .blur-\[180px\],
+  .blur-\[190px\] {
+    filter: blur(64px) !important;
+  }
+
+  .blur-\[120px\],
+  .blur-\[130px\] {
+    filter: blur(48px) !important;
+  }
+}
+
+/* Safe content-visibility for deep below-the-fold non-anchor sections */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 750px;
 }

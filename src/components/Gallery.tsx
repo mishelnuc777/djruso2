@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, ZoomIn, ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { djData } from '../data/djData';
 import { parseYouTube, youTubeEmbedUrl, youTubeThumbnail } from '../utils/media';
+import { useIsDesktop } from '../hooks/useIsDesktop';
 
 interface GalleryItem {
   id: string;
@@ -38,6 +39,7 @@ const galleryVideoItems: GalleryItem[] = (djData.galleryVideos ?? []).flatMap((v
 const galleryItems: GalleryItem[] = [...galleryPhotos, ...galleryVideoItems];
 
 export default function Gallery() {
+  const isDesktop = useIsDesktop();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const getSanitizedAlt = (altText: string, index: number): string => {
@@ -92,11 +94,11 @@ export default function Gallery() {
           ========================================================================= */}
       {/* Foco de luz y humo azul profundo superior izquierdo */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.08, 1], 
           opacity: [0.5, 0.75, 0.5],
           x: [-10, 15, -10]
-        }}
+        } : undefined}
         transition={{ 
           duration: 16, 
           repeat: Infinity, 
@@ -107,11 +109,11 @@ export default function Gallery() {
 
       {/* Foco de luz violeta y rojo tenue de escenario lateral derecho */}
       <motion.div 
-        animate={{ 
+        animate={isDesktop ? { 
           scale: [1, 1.07, 1], 
           opacity: [0.4, 0.65, 0.4],
           y: [0, -20, 0]
-        }}
+        } : undefined}
         transition={{ 
           duration: 18, 
           repeat: Infinity, 
@@ -238,7 +240,7 @@ export default function Gallery() {
                     <img 
                       src={image.url} 
                       alt={altText}
-                      loading={index < 3 ? 'eager' : 'lazy'}
+                      loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />
