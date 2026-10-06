@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Experience from './components/Experience';
 import Packages from './components/Packages';
 import MusicSets from './components/MusicSets';
 import Gallery from './components/Gallery';
@@ -25,28 +26,31 @@ export default function App() {
         {/* 1. HERO / HOME */}
         <Hero />
         
-        {/* 2. SERVICES */}
+        {/* 2. VIVE LA EXPERIENCIA */}
+        <Experience />
+        
+        {/* 3. SERVICES */}
         <Packages />
         
-        {/* 3. SELECTED SETS / MUSIC SETS */}
+        {/* 4. SELECTED SETS / MUSIC SETS */}
         <MusicSets />
         
-        {/* 4. LIVE / GALLERY */}
+        {/* 5. LIVE / GALLERY */}
         <Gallery />
         
-        {/* 5. SONIDO / GÉNEROS */}
+        {/* 6. SONIDO / GÉNEROS */}
         <Genres />
 
-        {/* 6. SOCIAL LINKS */}
+        {/* 7. SOCIAL LINKS */}
         <SocialLinks />
         
-        {/* 7. ABOUT / 18 AÑOS EN ESCENA */}
+        {/* 8. ABOUT / 18 AÑOS EN ESCENA */}
         <About />
         
-        {/* 8. CONTACT / BOOKING */}
+        {/* 9. CONTACT / BOOKING */}
         <Contact />
         
-        {/* 9. FINAL CTA / DJ BRYAN ACOSTA */}
+        {/* 10. FINAL CTA / DJ BRYAN ACOSTA */}
         <FinalCTA />
       </main>
 

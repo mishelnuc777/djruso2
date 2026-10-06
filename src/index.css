@@ -53,3 +53,12 @@
   content-visibility: auto;
   contain-intrinsic-size: 1px 750px;
 }
+
+/* Hide scrollbar for mobile snap carousels without breaking scroll capability */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
